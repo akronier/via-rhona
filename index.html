@@ -87,29 +87,29 @@
 </div>
 
 
-<div id="live-section" style="background:#fff;border:1px solid #e5e3dc;border-radius:12px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
-  <div style="padding:14px 16px;border-bottom:1px solid #f0efe8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+<div style="background:#fff;border:1px solid #e5e3dc;border-radius:12px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+  <div style="padding:13px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #f0efe8">
     <div>
-      <div style="font-size:13px;font-weight:500;color:#1c1b18;display:flex;align-items:center;gap:8px">
+      <div style="font-size:13px;font-weight:500;color:#1c1b18;display:flex;align-items:center;gap:7px">
         <i class="ti ti-radar-2" style="color:#dc2626"></i>
-        Live-Lage: Waldbrand & Wetter
+        Live-Lage: Waldbrand &amp; Wetter
       </div>
-      <div style="font-size:11px;color:#888;margin-top:3px">Zuletzt abgerufen: <span id="last-fetch">noch nicht geladen</span></div>
+      <div style="font-size:11px;color:#888;margin-top:2px">T&#228;glich vor der Abfahrt auf den offiziellen Seiten pr&#252;fen</div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <a href="https://meteofrance.com/meteonet/vigi-feux" target="_blank" style="font-size:11px;color:#2563eb;display:flex;align-items:center;gap:3px"><i class="ti ti-external-link" style="font-size:12px"></i>Météo-France</a>
-      <a href="https://feuxdeforet.fr" target="_blank" style="font-size:11px;color:#dc2626;display:flex;align-items:center;gap:3px"><i class="ti ti-external-link" style="font-size:12px"></i>feuxdeforet.fr</a>
-      <button onclick="fetchLiveData()" id="fetch-btn" style="background:#1c1b18;color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;display:flex;align-items:center;gap:6px">
-        <i class="ti ti-refresh" id="fetch-icon"></i>Jetzt aktualisieren
-      </button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="https://meteofrance.com/meteonet/vigi-feux" target="_blank" style="background:#2563eb;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;text-decoration:none"><i class="ti ti-cloud-sun"></i>M&#233;t&#233;o-France</a>
+      <a href="https://feuxdeforet.fr" target="_blank" style="background:#dc2626;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;text-decoration:none"><i class="ti ti-flame"></i>feuxdeforet.fr</a>
     </div>
   </div>
-  <div id="live-content" style="padding:14px 16px">
-    <div style="font-size:12px;color:#aaa;text-align:center;padding:20px 0">
-      <i class="ti ti-info-circle" style="font-size:20px;display:block;margin-bottom:8px;color:#ddd"></i>
-      Klicke auf <strong>Jetzt aktualisieren</strong> um die aktuelle Waldbrand- und Wetterlage von Météo-France und feuxdeforet.fr abzurufen.<br>
-      <span style="font-size:11px;margin-top:6px;display:block">Benötigt Internetverbindung · Powered by Claude AI + Web Search</span>
-    </div>
+  <div style="padding:11px 16px;display:flex;flex-wrap:wrap;gap:6px">
+    <span style="font-size:11px;color:#888;width:100%;margin-bottom:4px;font-weight:500">Direkte Links je D&#233;partement:</span>
+    <a href="https://feuxdeforet.fr/auvergne-rhone-alpes/ardeche/" target="_blank" style="font-size:11px;background:#fef3c7;padding:3px 9px;border-radius:5px;color:#92400e;text-decoration:none">Ard&#232;che T7&#8211;9 &#9888;</a>
+    <a href="https://feuxdeforet.fr/auvergne-rhone-alpes/drome/" target="_blank" style="font-size:11px;background:#fef3c7;padding:3px 9px;border-radius:5px;color:#92400e;text-decoration:none">Dr&#244;me T7&#8211;10 &#9888;</a>
+    <a href="https://feuxdeforet.fr/provence-alpes-cote-d-azur/vaucluse/" target="_blank" style="font-size:11px;background:#fee2e2;padding:3px 9px;border-radius:5px;color:#991b1b;text-decoration:none">Vaucluse T11 &#128308;</a>
+    <a href="https://feuxdeforet.fr/occitanie/gard/" target="_blank" style="font-size:11px;background:#fee2e2;padding:3px 9px;border-radius:5px;color:#991b1b;text-decoration:none">Gard T11&#8211;13 &#128308;</a>
+    <a href="https://feuxdeforet.fr/provence-alpes-cote-d-azur/bouches-du-rhone/" target="_blank" style="font-size:11px;background:#fee2e2;padding:3px 9px;border-radius:5px;color:#991b1b;text-decoration:none">BdR T11&#8211;12 &#128308;</a>
+    <a href="https://feuxdeforet.fr/occitanie/herault/" target="_blank" style="font-size:11px;background:#fee2e2;padding:3px 9px;border-radius:5px;color:#991b1b;text-decoration:none">H&#233;rault T13&#8211;15 &#128308;</a>
+    <span style="margin-left:auto;font-size:11px;color:#888">&#128688; 18 &#160; &#128682; 112</span>
   </div>
 </div>
 
@@ -366,118 +366,7 @@ function tog(tag, region) {
 function filter(f,btn){document.querySelectorAll(".fbt").forEach(b=>b.classList.remove("on"));btn.classList.add("on");render(f);}
 render("all");
 
-async function fetchLiveData() {
-  const btn = document.getElementById('fetch-btn');
-  const icon = document.getElementById('fetch-icon');
-  const content = document.getElementById('live-content');
-  const lastFetch = document.getElementById('last-fetch');
 
-  btn.disabled = true;
-  icon.className = 'ti ti-loader-2';
-  icon.style.animation = 'spin 1s linear infinite';
-  content.innerHTML = `
-    <div style="display:flex;align-items:center;gap:10px;padding:16px 0;font-size:13px;color:#555">
-      <i class="ti ti-loader-2" style="animation:spin 1s linear infinite;font-size:20px;color:#3b82f6"></i>
-      Claude sucht gerade auf Météo-France und feuxdeforet.fr nach aktuellen Daten...
-    </div>`;
-
-  const today = new Date().toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit', year:'numeric'});
-  const prompt = `Du bist ein Reiseassistent für eine Radtour auf der Via Rhôna (Lausanne → Sète) im August 2026.
-
-Suche JETZT auf folgenden Quellen nach der aktuellen Lage (Stand heute ${today}):
-1. https://meteofrance.com - aktuelle Vigilance Feux de Forêt Karte
-2. https://feuxdeforet.fr - aktuelle Waldbrand-Ereignisse
-3. Aktuelle Wetterlage Rhône-Tal, Provence, Languedoc
-
-Erstelle eine kompakte HTML-Übersicht (NUR HTML-Fragment, kein <!DOCTYPE> oder <html>-Tag) mit:
-
-1. **Waldbrand-Vigilance-Status** für diese Départements der Route (aktuelle Alarmstufe: Vert/Jaune/Orange/Rouge):
-   - Ain (01), Savoie (73), Isère (38): Route T1–T5
-   - Rhône (69), Ardèche (07), Drôme (26): Route T7–T10
-   - Gard (30), Vaucluse (84), Bouches-du-Rhône (13): Route T11–T12
-   - Hérault (34): Route T13–T15
-
-2. **Aktive Brände** die möglicherweise die Route betreffen
-
-3. **Wetterlage** kurz: Temperaturen, Mistral/Tramontane, Prognose
-
-Formatiere als strukturiertes HTML mit Farb-Badges:
-- Vert: background:#d1fae5;color:#065f46
-- Jaune: background:#fef9c3;color:#854d0e  
-- Orange: background:#ffedd5;color:#9a3412
-- Rouge: background:#fee2e2;color:#991b1b
-- Rouge (aktiver Brand): background:#450a0a;color:#fca5a5
-
-Verwende diese HTML-Struktur für jedes Département:
-<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f5f4ef;font-size:12px">
-  <span>[Département-Name] (T[Tag-Nummern])</span>
-  <span style="[Farbe];padding:2px 10px;border-radius:10px;font-weight:500;font-size:11px">[Status]</span>
-</div>
-
-Füge am Ende eine kurze Zusammenfassung in 2–3 Sätzen hinzu was das für die Radtour bedeutet.
-Schreibe NUR das HTML-Fragment, keine Erklärungen, kein Markdown.`;
-
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 1500,
-        tools: [{"type": "web_search_20250305", "name": "web_search"}],
-        messages: [{"role": "user", "content": prompt}]
-      })
-    });
-
-    const data = await response.json();
-
-    // Extract text content from response (may be after tool use blocks)
-    let htmlContent = '';
-    if (data.content && Array.isArray(data.content)) {
-      for (const block of data.content) {
-        if (block.type === 'text' && block.text) {
-          htmlContent += block.text;
-        }
-      }
-    }
-
-    // Clean up markdown fences if present
-    htmlContent = htmlContent.replace(/```html/gi, '').replace(/```/g, '').trim();
-
-    if (htmlContent) {
-      const now = new Date().toLocaleString('de-DE');
-      lastFetch.textContent = now;
-
-      content.innerHTML = `
-        <div style="margin-bottom:12px">
-          <div style="font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:5px">
-            <i class="ti ti-flame" style="color:#dc2626"></i>Waldbrand-Vigilance & Wetterlage (Live)
-          </div>
-          ${htmlContent}
-        </div>
-        <div style="font-size:10px;color:#aaa;margin-top:10px;padding-top:8px;border-top:1px solid #f5f4ef;display:flex;align-items:center;gap:4px">
-          <i class="ti ti-robot" style="font-size:12px"></i>
-          Abgerufen via Claude AI + Web Search · Quellen: meteofrance.com · feuxdeforet.fr · ${now}
-        </div>`;
-    } else {
-      throw new Error('Keine Daten erhalten');
-    }
-
-  } catch (err) {
-    content.innerHTML = `
-      <div style="background:#fff1f0;border:1px solid #fca5a5;border-radius:8px;padding:12px;font-size:12px;color:#7f1d1d">
-        <strong>Fehler beim Abrufen:</strong> ${err.message}<br>
-        <span style="font-size:11px;margin-top:4px;display:block">Bitte prüfe die Verbindung und versuche es erneut, oder besuche direkt:
-          <a href="https://meteofrance.com/meteonet/vigi-feux" target="_blank" style="color:#2563eb">Météo-France</a> ·
-          <a href="https://feuxdeforet.fr" target="_blank" style="color:#2563eb">feuxdeforet.fr</a>
-        </span>
-      </div>`;
-  }
-
-  btn.disabled = false;
-  icon.className = 'ti ti-refresh';
-  icon.style.animation = '';
-}
 
 </script>
 </body>
