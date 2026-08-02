@@ -276,6 +276,21 @@ a.fs-btn:hover{background:#f2f2ee}
 
 .card-body .acc>.acc-hd .hd-meta{margin-left:auto;font-size:10.5px;font-weight:500;color:#8a8577;white-space:nowrap}
 @media(max-width:600px){.card-body .acc>.acc-hd .hd-meta{display:none}}
+
+/* ---------- Offline-Ersatzdarstellung der Karte ---------- */
+.map-box.map-offline .leaflet-tile-pane{display:none}
+.map-box.map-offline{background-color:#f3f2ec;
+ background-image:linear-gradient(#e2e0d6 1px,transparent 1px),linear-gradient(90deg,#e2e0d6 1px,transparent 1px);
+ background-size:40px 40px}
+.map-off-badge{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;z-index:900;
+ background:rgba(28,27,24,.85);color:#fff;font-size:10.5px;padding:4px 11px;border-radius:12px;
+ display:flex;align-items:center;gap:5px;pointer-events:none;white-space:nowrap;max-width:92%}
+.map-off-badge i{font-size:12px;color:#fbbf24}
+.offline-bar{display:none;align-items:center;gap:9px;background:#fffbeb;border:1px solid #fde68a;
+ border-radius:12px;padding:10px 14px;margin-bottom:18px;font-size:11.5px;color:#92400e;line-height:1.5}
+.offline-bar.on{display:flex}
+.offline-bar i{font-size:17px;color:#d97706;flex:none}
+.sw-note{font-size:10.5px;color:#8a8577;margin-left:auto;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -312,6 +327,7 @@ a.fs-btn:hover{background:#f2f2ee}
     <span style="margin-left:auto;font-size:11px;color:#888">🚒 18 &nbsp; 🆘 112</span>
   </div>
 </div>
+<div class="offline-bar" id="offbar"><i class="ti ti-wifi-off"></i><div>Kein Netz erkannt. Alle Texte, Adressen, GPS-Koordinaten und der Streckenverlauf funktionieren weiter. Kartenkacheln erscheinen erst wieder mit Verbindung — bereits geladene Ausschnitte bleiben zwischengespeichert.</div><span class="sw-note" id="swnote"></span></div>
 <div class="geo-bar"><button class="geo-btn" id="geobtn" onclick="toggleGeo()"><i class="ti ti-current-location"></i>Standort anzeigen</button><div class="geo-info" id="geoinfo">Zeigt deine aktuelle GPS-Position als blauen Punkt in jeder geöffneten Etappenkarte, inklusive Entfernung zur Route. Muss einmal im Browser freigegeben werden.</div></div>
 <div class="fire-alert">
   <div class="fire-alert-hd"><i class="ti ti-flame"></i>🚨 WALDBRANDLAGE — Stand 2. August 2026</div>
@@ -558,6 +574,20 @@ return '<div class="h2o-box"><div class="h2o-ges"><i class="ti ti-bottle"></i>'+
 +'<div class="h2o-p">'+h.pers.map(function(p){return '<span class="h2o-chip">'+p.k+': '+String(p.v).replace(".",",")+' L</span>';}).join("")+'</div>'
 +'<div class="h2o-meta">Unterwegs-Bedarf: rund '+String(h.std).replace(".",",")+' h Fahrzeit \u00d7 '+String(h.rate).replace(".",",")+' L/h bei '+h.tmax+' \u00b0C, gewichtet nach K\u00f6rpergewicht und Alter. '
 +'Dazu am Abend und morgens am Platz nochmals etwa '+String(h.abend).replace(".",",")+' L f\u00fcr die Gruppe. Richtwert \u2014 nach Durst trinken und bei Gegenwind oder l\u00e4ngeren Pausen anpassen.</div></div>';}
+function markMapOffline(m,tag){var c=m.getContainer();
+if(c.className.indexOf("map-offline")>-1)return;
+c.className+=" map-offline";
+var b=document.createElement("div");b.className="map-off-badge";
+b.innerHTML='<i class="ti ti-wifi-off"></i>Offline \u2014 Kartenkacheln fehlen. Track, Punkte und Standort bleiben nutzbar.';
+c.appendChild(b);
+try{m.invalidateSize();}catch(e){}}
+function watchTiles(m,layer,tag){var errs=0,okCount=0,decided=false;
+layer.on("tileload",function(){okCount++;if(okCount>2&&!decided){decided=true;}});
+layer.on("tileerror",function(){errs++;
+ if(!decided&&errs>=6&&okCount===0){decided=true;markMapOffline(m,tag);}});
+setTimeout(function(){if(!decided&&okCount===0){decided=true;markMapOffline(m,tag);}},9000);}
+function offlineBar(){var el=document.getElementById("offbar");if(!el)return;
+if(navigator.onLine===false)el.className="offline-bar on";else el.className="offline-bar";}
 function windColor(rel){return rel<60?"#ef4444":(rel>120?"#22c55e":"#f59e0b");}
 function buildWindLayer(tag,pts){var d=DAYS.find(function(x){return x.tag===tag;});
 if(!d||!d.wd||d.wd.dir===undefined)return null;
@@ -614,7 +644,7 @@ function initMap(tag,region){var mid="map"+tag;if(MAPS[mid]){try{MAPS[mid].inval
 var t=TRACKS[tag];if(!t)return;var color=RC[region]||"#3b82f6";
 if(typeof L==="undefined"||window.LEAFLET_FAILED){drawFallbackMap(mid,tag,color);return;}
 try{var m=L.map(mid,{zoomControl:true,scrollWheelZoom:false,attributionControl:true});
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"\u00a9 <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>",maxZoom:17}).addTo(m);
+var tl=L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"\u00a9 <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>",maxZoom:17});tl.addTo(m);watchTiles(m,tl,tag);
 var pts=t.pts.map(function(p){return[p[0],p[1]];});
 var bnds=t.b?L.latLngBounds(t.b[0],t.b[1]):L.latLngBounds(pts);
 m.fitBounds(bnds,{padding:[16,16]});
@@ -719,6 +749,13 @@ function makeAcc(card){
  });})(btns[b]);}
  card.setAttribute("data-acc","1");}
 function makeAllAcc(){var cs=document.querySelectorAll(".card");for(var i=0;i<cs.length;i++)makeAcc(cs[i]);}
+if("serviceWorker" in navigator){
+ window.addEventListener("load",function(){
+  navigator.serviceWorker.register("sw.js").then(function(){
+   var n=document.getElementById("swnote");if(n)n.textContent="Offline-Speicher aktiv";
+  }).catch(function(){});});}
+window.addEventListener("online",offlineBar);
+window.addEventListener("offline",offlineBar);
 function render(f){Object.keys(MAPS).forEach(function(k){try{MAPS[k].remove();}catch(e){}delete MAPS[k];});var shown=f==="all"?DAYS:DAYS.filter(function(e){return e.r===f;});document.getElementById("cards").innerHTML=shown.map(renderCard).join("");makeAllAcc();}
 function tog(tag,region){var el=document.getElementById("card"+tag);makeAcc(el);el.classList.toggle("open");if(el.classList.contains("open")){var attempts=0;function tryInit(){attempts++;if(typeof L!=="undefined"||attempts>30||window.LEAFLET_FAILED){initMap(tag,region);fetchUVForTag(tag);}else{setTimeout(tryInit,100);}}setTimeout(tryInit,80);}}
 function filter(f,btn){document.querySelectorAll(".fbt").forEach(function(b){b.classList.remove("on");});btn.classList.add("on");render(f);}
@@ -884,7 +921,7 @@ function waterHTML(e) {
   '</div>';
 }
 
-render("all");
+render("all");offlineBar();
 </script>
 </body>
 </html>
