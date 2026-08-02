@@ -178,6 +178,104 @@ a.fs-btn:hover{background:#f2f2ee}
 .h2o-chip{font-size:11px;background:#fff;border:1px solid #7dd3fc;color:#075985;border-radius:11px;padding:2px 9px;font-weight:500;white-space:nowrap}
 .h2o-meta{width:100%;font-size:10.5px;color:#0369a1;line-height:1.5}
 .wp-sec{border-bottom:1px solid #e5e3dc}
+
+.acc{border-bottom:1px solid #e5e3dc}
+.acc>.acc-hd{cursor:pointer;user-select:none;position:relative;padding-right:36px!important}
+.acc-ch{position:absolute;right:12px;top:50%;transform:translateY(-50%) rotate(-90deg);transition:transform .18s ease;color:#9ca3af;font-size:15px;flex:none}
+.acc.acc-open>.acc-hd .acc-ch{transform:translateY(-50%) rotate(0deg)}
+.acc>.acc-bd{display:none}
+.acc.acc-open>.acc-bd{display:block}
+.acc-cnt{font-size:10px;font-weight:600;background:rgba(0,0,0,.07);border-radius:9px;padding:1px 7px;opacity:.8;margin-left:6px}
+.acc-hd-gen{display:flex;align-items:center;gap:7px;padding:10px 14px;font-size:12px;font-weight:600;color:#3c3a33;background:#f3f1ea;border-bottom:1px solid #e5e3dc}
+.acc-hd-gen .acc-t{flex:1}
+.acc.acc-open>.acc-hd-gen{border-bottom:1px solid #e5e3dc}
+.acc:not(.acc-open)>.acc-hd-gen{border-bottom:none}
+.acc-bar{display:flex;align-items:center;gap:8px;padding:7px 14px;border-bottom:1px solid #e5e3dc;background:#fbfaf7}
+.acc-bar span{font-size:10.5px;color:#8a8577;flex:1}
+.acc-bar button{background:#fff;border:1px solid #d8d5cc;border-radius:7px;font-size:11px;padding:4px 11px;cursor:pointer;color:#5c5749;font-family:inherit;display:flex;align-items:center;gap:4px}
+.acc-bar button:hover{background:#f2f0e9}
+
+/* ================= einheitliche Bereichsdarstellung ================= */
+.card-body{background:#fff}
+.card-body .acc{background:#fff!important;padding:0!important;border:none!important;border-bottom:1px solid #eceae2!important}
+.card-body .acc:last-of-type{border-bottom:none!important}
+.card-body .acc>.acc-hd{
+  background:#fbfaf7!important;border:none!important;border-bottom:1px solid transparent!important;
+  margin:0!important;padding:11px 36px 11px 14px!important;min-height:44px;box-sizing:border-box;
+  font-size:12.5px!important;font-weight:600!important;color:#33312b!important;
+  text-transform:none!important;letter-spacing:0!important;line-height:1.35!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+  justify-content:flex-start!important;flex-wrap:nowrap!important;transition:background .12s}
+.card-body .acc>.acc-hd:hover{background:#f2f0e9!important}
+.card-body .acc.acc-open>.acc-hd{background:#f2f0e9!important;border-bottom:1px solid #e5e3dc!important}
+.card-body .acc>.acc-hd i.ti{font-size:16px!important;flex:none}
+.card-body .acc>.acc-hd .acc-ch{font-size:15px!important;color:#a8a294!important}
+
+/* Themenfarbe nur noch über das Symbol */
+.ue-sec>.acc-hd>i.ti:first-child{color:#16a34a!important}
+.wd-sec>.acc-hd>i.ti:first-child{color:#2563eb!important}
+.sh-sec>.acc-hd>i.ti:first-child{color:#3f8f4a!important}
+.ek-sec>.acc-hd>i.ti:first-child{color:#e11d48!important}
+.water-section>.acc-hd i.ti-droplet{color:#0ea5e9!important}
+.fire-dist-wrap>.acc-hd>i.ti:first-child{color:#ef4444!important}
+.bau-sec>.acc-hd>i.ti:first-child{color:#d97706!important}
+.direkt-band>.acc-hd>i.ti:first-child{color:#a16207!important}
+.wpt-band>.acc-hd>i.ti:first-child{color:#4f46e5!important}
+.sec>.acc-hd>i.ti:first-child{color:#7c3aed!important}
+.acc-hd-gen>i.ti:first-child{color:#8a8577!important}
+
+/* rechte Zusatzangaben im Kopf einheitlich */
+.card-body .acc>.acc-hd .ue-hd-dat,
+.card-body .acc>.acc-hd .ek-cnt,
+.card-body .acc>.acc-hd .sh-rate,
+.card-body .acc>.acc-hd .water-bedarf,
+.card-body .acc>.acc-hd .acc-t{margin-left:auto!important}
+.card-body .acc>.acc-hd .acc-t{margin-left:0!important;flex:1}
+.card-body .acc>.acc-hd .ue-hd-dat,
+.card-body .acc>.acc-hd .ek-cnt{font-size:10.5px!important;font-weight:500!important;color:#8a8577!important;
+  background:none!important;border:none!important;padding:0!important;white-space:nowrap}
+.card-body .acc>.acc-hd .water-bedarf{font-size:10.5px!important;font-weight:600!important;color:#5c5749!important;
+  background:#fff!important;border:1px solid #ddd9cf!important;padding:2px 8px!important;white-space:nowrap}
+.card-body .acc>.acc-hd .water-hd-left{display:flex!important;align-items:center;gap:8px;padding:0!important;
+  font-size:12.5px!important;font-weight:600!important;color:#33312b!important}
+.card-body .acc>.acc-hd .sh-rate{gap:3px}
+.card-body .acc>.acc-hd .sh-rate span[style]{color:#8a8577!important}
+.card-body .acc-cnt{background:#fff!important;border:1px solid #ddd9cf!important;color:#7a756a!important;
+  font-size:10px!important;font-weight:600!important;padding:1px 7px!important;border-radius:9px!important;margin-left:6px!important}
+
+/* Innenabstände der Bereiche vereinheitlichen */
+.fire-dist-wrap>.acc-bd,.direkt-band>.acc-bd,.wpt-band>.acc-bd,.sec>.acc-bd,.bau-sec>.acc-bd{padding:11px 14px!important}
+.card-body .acc>.acc-bd>.hi-row:last-child,.card-body .acc>.acc-bd>.bau-row:last-child{border-bottom:none!important}
+.card-body .acc>.acc-bd .water-hinweis{margin:0!important;border-radius:0!important}
+
+/* dunkles Band aufhellen, damit alles eine Fläche bildet */
+.direkt-band .di{background:#f7f5ef!important;border:1px solid #e6e2d6!important;color:#3c3a33!important}
+.direkt-band .di-d{color:#8a8577!important}
+.direkt-band .di a{color:#2563eb!important}
+.wpt-band .wpt-item{background:#f5f6fb!important;border-color:#dfe3f5!important;color:#3c3a33!important}
+.sec .sec-hd{color:inherit!important}
+
+/* Kartenlegenden ruhiger */
+.lay-leg,.wind-leg{padding:8px 14px 4px!important;font-size:10.5px!important;color:#8a8577!important;
+  border:none!important;gap:10px!important;line-height:1.6}
+.wind-leg{padding-top:0!important;padding-bottom:10px!important}
+.lay-leg b,.wind-leg b{color:#5c5749!important;font-weight:600}
+
+/* Kopfleiste und Dauerinfos */
+.acc-bar{background:#fff!important;border-bottom:1px solid #eceae2!important;padding:8px 14px!important}
+.ele-strip{border-bottom:1px solid #eceae2!important;background:#fff!important;font-weight:500}
+.h2o-box{border-bottom:1px solid #eceae2!important}
+.card-body .wbox{margin:10px 14px!important;border-radius:8px!important}
+.card-body .off-link{margin:12px 14px!important}
+.card-body .foot-note{padding:10px 14px!important;border-top:1px solid #eceae2}
+.uv-section:empty{display:none}
+@media(max-width:600px){
+ .card-body .acc>.acc-hd{font-size:12px!important;padding:10px 32px 10px 12px!important;min-height:42px}
+ .card-body .acc>.acc-hd .ue-hd-dat,.card-body .acc>.acc-hd .ek-cnt{display:none!important}
+}
+
+.card-body .acc>.acc-hd .hd-meta{margin-left:auto;font-size:10.5px;font-weight:500;color:#8a8577;white-space:nowrap}
+@media(max-width:600px){.card-body .acc>.acc-hd .hd-meta{display:none}}
 </style>
 </head>
 <body>
@@ -320,8 +418,8 @@ return '<div class="sh-sec"><div class="sh-hd"><i class="ti ti-umbrella"></i>Sch
 +'<div><div class="sh-n">'+p.n+(p.km!==undefined?'<span class="sh-km">km '+p.km+'</span>':'')+'</div>'+'<div class="sh-d">'+p.d+(p.off>400?' <em>(rund '+(p.off<1000?p.off+' m':(p.off/1000).toFixed(1)+' km')+' abseits der Route)</em>':'')+'</div></div></div>';}).join("")
 +'</div>';}
 function eleHTML(d){return`<div class="ele-strip"><div class="ele-item"><i class="ti ti-ruler-measure"></i><strong>${d.km} km</strong></div><div class="ele-item"><i class="ti ti-trending-up"></i>+${d.gain} m</div><div class="ele-item"><i class="ti ti-mountain"></i>${d.emin}–${d.emax} m</div></div>`;}
-function wptHTML(w){if(!w||!w.length)return"";const ic={"camping":"ti-tent","campingplatz":"ti-tent","aussicht":"ti-eye","blick":"ti-eye","grenz":"ti-flag","strand":"ti-waves","messlatt":"ti-ruler","messung":"ti-ruler","irigny":"ti-waves","werk":"ti-building","parc":"ti-trees","aldi":"ti-shopping-cart","super":"ti-shopping-cart","intermarché":"ti-shopping-cart","boulangerie":"ti-bread","bäckerei":"ti-bread","kirche":"ti-building-church","kathedrale":"ti-building-church","statue":"ti-building","moorisches":"ti-building-arch","brunnen":"ti-droplet","trinkwasser":"ti-droplet","fußgänger":"ti-bridge","erzeuger":"ti-plant-2","default":"ti-flag-2"};function gi(n){const nl=n.toLowerCase();for(const[k,v] of Object.entries(ic)){if(nl.includes(k))return v;}return ic.default;}return`<div class="wpt-band"><div class="wpt-hd"><i class="ti ti-flag"></i>GPX-Wegpunkte (Komoot-Track)</div><div class="wpt-items">${w.map(x=>`<div class="wpt-item"><i class="ti ${gi(x)}"></i>${x}</div>`).join("")}</div></div>`;}
-function bauHTML(b){if(!b||!b.length)return"";return`<div class="bau-sec"><div class="bau-hd"><i class="ti ti-traffic-cone"></i>Baustellen & Sperrungen — Stand 28. Juni 2026</div>${b.map(x=>`<div class="bau-row"><i class="ti ${x.ic} bau-ic ${IC[x.t]}"></i><div class="bau-body"><div class="bau-tit">${x.title}<span class="bau-pill ${x.bp}">${x.lab}</span></div><div class="bau-desc">${x.desc}</div></div></div>`).join("")}</div>`;}
+function wptHTML(w){if(!w||!w.length)return"";const ic={"camping":"ti-tent","campingplatz":"ti-tent","aussicht":"ti-eye","blick":"ti-eye","grenz":"ti-flag","strand":"ti-waves","messlatt":"ti-ruler","messung":"ti-ruler","irigny":"ti-waves","werk":"ti-building","parc":"ti-trees","aldi":"ti-shopping-cart","super":"ti-shopping-cart","intermarché":"ti-shopping-cart","boulangerie":"ti-bread","bäckerei":"ti-bread","kirche":"ti-building-church","kathedrale":"ti-building-church","statue":"ti-building","moorisches":"ti-building-arch","brunnen":"ti-droplet","trinkwasser":"ti-droplet","fußgänger":"ti-bridge","erzeuger":"ti-plant-2","default":"ti-flag-2"};function gi(n){const nl=n.toLowerCase();for(const[k,v] of Object.entries(ic)){if(nl.includes(k))return v;}return ic.default;}return`<div class="wpt-band"><div class="wpt-hd"><i class="ti ti-flag"></i>GPX-Wegpunkte</div><div class="wpt-items">${w.map(x=>`<div class="wpt-item"><i class="ti ${gi(x)}"></i>${x}</div>`).join("")}</div></div>`;}
+function bauHTML(b){if(!b||!b.length)return"";return`<div class="bau-sec"><div class="bau-hd"><i class="ti ti-traffic-cone"></i>Baustellen & Sperrungen<span class="hd-meta">Stand 28. Juni</span></div>${b.map(x=>`<div class="bau-row"><i class="ti ${x.ic} bau-ic ${IC[x.t]}"></i><div class="bau-body"><div class="bau-tit">${x.title}<span class="bau-pill ${x.bp}">${x.lab}</span></div><div class="bau-desc">${x.desc}</div></div></div>`).join("")}</div>`;}
 function warnHTML(w){return w.map(x=>`<div class="wbox ${WC[x.t]}"><i class="ti ${x.ic}"></i><div class="wc"><strong>${x.tit}</strong>${x.txt}</div></div>`).join("");}
 function direktHTML(i){if(!i||!i.length)return"";return`<div class="direkt-band"><div class="direkt-hd"><i class="ti ti-map-pin"></i>Direkt an der Strecke</div><div class="direkt-items">${i.map(x=>`<div class="di"><i class="ti ${x.i}"></i><span class="di-n">${x.n}</span><span class="di-d">${x.d}</span>${x.lat?`<a href="https://www.openstreetmap.org/?mlat=${x.lat}&mlon=${x.lon}#map=17/${x.lat}/${x.lon}" target="_blank" style="font-size:10px;color:#f5d87b;margin-left:5px"><i class="ti ti-map-pin" style="font-size:11px"></i></a>`:''}</div>`).join("")}</div></div>`;}
 function fireMapHTML(e){var fires=FIRES_BY_TAG[String(e.tag)];if(!fires||!fires.length)return"";var actif=fires.filter(function(f){return f.status==="actif";}).length;var total=fires.length;return'<div class="fire-map-wrap"><div class="fire-map-label"><i class="ti ti-flame"></i>'+(actif>0?actif+' aktiver Brand'+(actif>1?'e':''):'')+((actif>0&&total>actif)?' + ':'')+((total>actif)?(total-actif)+' fixiert':'')+ ' (Stand 2. August 2026)</div><div id="firemap'+e.tag+'" class="fire-map-box"></div><div class="fire-map-src">🔥 feuxdeforet.fr · Météo-France</div></div><div class="fire-legend"><span class="fire-leg"><span class="fl-dot" style="background:#ef4444"></span>Aktiver Brand (Rouge)</span><span class="fire-leg"><span class="fl-dot" style="background:#f97316"></span>Fixiert (Orange)</span><span class="fire-leg" style="margin-left:auto"><span class="fl-dot" style="background:'+(RC[e.r]||'#888')+';border-color:rgba(0,0,0,.3)"></span>Via Rhôna Route</span></div>';}
@@ -368,8 +466,7 @@ return g;}
 function shopHTML(e){var s=e.shop;
 if(!s||!s.length)return '<div class="ek-sec"><div class="ek-hd"><i class="ti ti-shopping-cart"></i>Einkauf &amp; Verpflegung</div>'
  +'<div class="ek-none">Auf dieser Etappe sind im Komoot-Track keine Eink\u00e4ufe als Wegpunkt gesetzt. Versorgung \u00fcber die Ortschaften der Route \u2014 siehe Wasserstellen oben.</div></div>';
-return '<div class="ek-sec"><div class="ek-hd"><i class="ti ti-shopping-cart"></i>Einkauf &amp; Verpflegung'
-+'<span class="ek-cnt">'+s.length+' Punkte auf der Route</span></div>'
+return '<div class="ek-sec"><div class="ek-hd"><i class="ti ti-shopping-cart"></i>Einkauf &amp; Verpflegung</div>'
 +s.map(function(p){return '<div class="ek-item ek-'+p.t+'"><i class="ti '+(EKIC[p.t]||"ti-shopping-cart")+' ek-ic"></i>'
  +'<div><div class="ek-n">'+p.n+'<span class="ek-km">km '+p.km+'</span></div>'
  +'<div class="ek-d">'+(EKLAB[p.t]||"")+(p.d?' \u00b7 '+p.d:'')
@@ -543,13 +640,87 @@ L.circleMarker([t.e[0],t.e[1]],{radius:7,fillColor:"#dc2626",color:"#fff",weight
 addFSControl(m);MAPS[mid]=m;addGeoMarker(m,tag);setTimeout(function(){try{m.invalidateSize();m.fitBounds(bnds,{padding:[16,16]});}catch(e){}},60);}
 catch(err){console.warn("Map error tag "+tag+":",err.message);drawFallbackMap(mid,tag,color);}}
 function initFireMap(tag,region,routeColor){var fmid="firemap"+tag;if(MAPS[fmid]){try{MAPS[fmid].invalidateSize();}catch(e){}return;}var fires=FIRES_BY_TAG[String(tag)];if(!fires||!fires.length)return;if(typeof L==="undefined")return;try{var m=L.map(fmid,{zoomControl:true,scrollWheelZoom:false,attributionControl:true});var osmLayer=L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap",maxZoom:17});var darkLayer=L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap © CARTO",maxZoom:13});osmLayer.addTo(m);L.control.layers({"OpenStreetMap":osmLayer,"Dunkle Karte":darkLayer},{},{position:"topright",collapsed:false}).addTo(m);var t=TRACKS[tag];if(t){L.polyline(t.pts.map(function(p){return[p[0],p[1]];}),{color:routeColor,weight:3,opacity:.6,lineJoin:"round",dashArray:"6,4"}).addTo(m);L.circleMarker([t.s[0],t.s[1]],{radius:5,fillColor:routeColor,color:"#fff",weight:2,fillOpacity:.8}).addTo(m);L.circleMarker([t.e[0],t.e[1]],{radius:5,fillColor:"#60a5fa",color:"#fff",weight:2,fillOpacity:.8}).addTo(m);}var bounds=[];fires.forEach(function(f){var sevColors={rouge:"#ef4444",orange:"#f97316",jaune:"#eab308"};var col=sevColors[f.sev]||"#ef4444";var radius=Math.max(8,Math.min(24,Math.sqrt(f.ha||1)*1.5));if(f.status==="actif"){L.circle([f.lat,f.lon],{radius:radius*800,fillColor:col,fillOpacity:.15,color:col,weight:1,opacity:.4}).addTo(m);}L.circleMarker([f.lat,f.lon],{radius:radius,fillColor:col,fillOpacity:.85,color:"#fff",weight:2}).bindPopup('<div style="font-size:12px;min-width:180px"><strong style="color:'+col+'">'+(f.status==="actif"?"🔥 AKTIV":"✅ Fixiert")+'</strong><div style="margin-top:4px;font-weight:600">'+f.name+'</div><div style="color:#666;margin-top:2px">'+f.dept+' · '+(f.ha||"?")+" ha</div></div>",{maxWidth:250}).addTo(m);bounds.push([f.lat,f.lon]);if(t){bounds.push([t.s[0],t.s[1]]);bounds.push([t.e[0],t.e[1]]);}});if(bounds.length>0){m.fitBounds(bounds,{padding:[20,20],maxZoom:11});}MAPS[fmid]=m;}catch(e){console.warn("Fire map error:",e);}}
-function renderCard(e){var hc=e.crit,hw=e.hasBau&&!e.crit;var cls="card"+(hc?" crit":hw?" warn":"");var badge=hc?'<span class="pill p-crit"><i class="ti ti-alert-circle" style="font-size:10px"></i>Sperrung</span>':hw?'<span class="pill p-warn"><i class="ti ti-hammer" style="font-size:10px"></i>Baustelle</span>':"";var hiRows=function(arr,sec){return arr.length?'<div class="sec"><div class="sec-hd"><i class="ti '+(sec==="k"?"ti-building-arch":"ti-mountain")+'"></i>'+(sec==="k"?"Kultur & Geschichte":"Natur & Landschaft")+"</div>"+arr.map(function(s){return'<div class="hi-row"><i class="ti '+s.i+' hi-ic"></i><div class="hi-body"><div class="hi-name">'+s.n+'<span class="pill '+s.b+'">'+s.bl+"</span></div>"+'<div class="hi-desc">'+s.desc+(s.lat?'<br><a href="https://www.openstreetmap.org/?mlat='+s.lat+'&mlon='+s.lon+'#map=17/'+s.lat+'/'+s.lon+'" target="_blank" style="display:inline-flex;align-items:center;gap:3px;color:#2563eb;font-size:10px;margin-top:2px"><i class=\"ti ti-map-pin\" style=\"font-size:10px\"></i> '+s.lat.toFixed(4)+', '+s.lon.toFixed(4)+'</a>':'')+"</div></div></div>";}).join("")+"</div>":"";};;var wxBadge=e.wx?(e.wx.feuer.indexOf("🔴")===0?" 🔴":e.wx.feuer.indexOf("🟡")===0?" 🟡":""):"";return'<div class="'+cls+'" id="card'+e.tag+'"><div class="card-hd" onclick="tog('+e.tag+",'"+e.r+"'"+')"><div class="tag-pill" style="background:'+e.bg+";color:"+e.tx+'">T'+e.tag+'</div><div class="card-meta"><div class="card-title">'+e.von+" → "+e.bis+" "+badge+'</div><div class="card-sub"><span>'+e.d+"</span>"+'<span style="opacity:.3">·</span><span class="pill p-reg">'+RL[e.r]+'</span><span style="opacity:.3">·</span><span class="pill p-km">'+e.km+' km</span><span style="opacity:.3">·</span><span class="pill p-ele"><i class="ti ti-trending-up" style="font-size:10px"></i>+'+e.gain+'m</span><span style="opacity:.3">·</span><span style="font-size:11px">'+(e.wx?e.wx.tmax+"°C":"")+wxBadge+'</span>'+(e.ue?'<span style="opacity:.3">·</span><span class="pill p-ue d-'+e.ue.sc+'"><i class="ti ti-tent" style="font-size:10px"></i>'+e.ue.ort+'</span>':'')+'</div></div><i class="ti ti-chevron-down chevron"></i></div><div class="card-body"><div id="map'+e.tag+'" class="map-box"></div>'+layerLegendHTML(e)+'<div class="wind-leg"><i class="ti ti-map-2" style="width:auto;height:auto;color:#9ca3af"></i><span>Ebenen rechts oben: Route/Wind · Schatten · Einkauf</span><span><i style="background:#e11d48;width:9px;height:9px;border-radius:50%"></i>Supermarkt</span><span><i style="background:#b45309;width:9px;height:9px;border-radius:50%"></i>Bäckerei</span><span><i style="background:#22c55e"></i>R\u00fcckenwind</span><span><i style="background:#f59e0b"></i>Seitenwind</span><span><i style="background:#ef4444"></i>Gegenwind</span></div>'+eleHTML(e)+ueHTML(e)+windHTML(e)+shadeHTML(e)+shopHTML(e)+'<div class="uv-section" id="uv-'+e.tag+'"></div>'+fireDistHTML(e)+wxHTML(e)+h2oHTML(e)+waterHTML(e)+bauHTML(e.bau)+warnHTML(e.warns)+'<a href="'+e.url+'" target="_blank" class="off-link"><i class="ti ti-external-link"></i>Offizielle Etappenseite — viarhona.com</a>'+wptHTML(e.wpts)+direktHTML(e.direkt)+hiRows(e.k,"k")+hiRows(e.n,"n")+'<div class="foot-note"><i class="ti ti-database" style="font-size:11px"></i>GPX: Komoot · Baustellen: <a href="https://de.viarhona.com/travaux-en-cours-sur-viarhona" target="_blank">viarhona.com</a> 28. Juni · Wetter/Brand: <a href="https://feuxdeforet.fr" target="_blank">feuxdeforet.fr</a> 5. Juli 2026</div></div></div>';}
+function renderCard(e){var hc=e.crit,hw=e.hasBau&&!e.crit;var cls="card"+(hc?" crit":hw?" warn":"");var badge=hc?'<span class="pill p-crit"><i class="ti ti-alert-circle" style="font-size:10px"></i>Sperrung</span>':hw?'<span class="pill p-warn"><i class="ti ti-hammer" style="font-size:10px"></i>Baustelle</span>':"";var hiRows=function(arr,sec){return arr.length?'<div class="sec"><div class="sec-hd"><i class="ti '+(sec==="k"?"ti-building-arch":"ti-mountain")+'"></i>'+(sec==="k"?"Kultur & Geschichte":"Natur & Landschaft")+"</div>"+arr.map(function(s){return'<div class="hi-row"><i class="ti '+s.i+' hi-ic"></i><div class="hi-body"><div class="hi-name">'+s.n+'<span class="pill '+s.b+'">'+s.bl+"</span></div>"+'<div class="hi-desc">'+s.desc+(s.lat?'<br><a href="https://www.openstreetmap.org/?mlat='+s.lat+'&mlon='+s.lon+'#map=17/'+s.lat+'/'+s.lon+'" target="_blank" style="display:inline-flex;align-items:center;gap:3px;color:#2563eb;font-size:10px;margin-top:2px"><i class=\"ti ti-map-pin\" style=\"font-size:10px\"></i> '+s.lat.toFixed(4)+', '+s.lon.toFixed(4)+'</a>':'')+"</div></div></div>";}).join("")+"</div>":"";};;var wxBadge=e.wx?(e.wx.feuer.indexOf("🔴")===0?" 🔴":e.wx.feuer.indexOf("🟡")===0?" 🟡":""):"";return'<div class="'+cls+'" id="card'+e.tag+'"><div class="card-hd" onclick="tog('+e.tag+",'"+e.r+"'"+')"><div class="tag-pill" style="background:'+e.bg+";color:"+e.tx+'">T'+e.tag+'</div><div class="card-meta"><div class="card-title">'+e.von+" → "+e.bis+" "+badge+'</div><div class="card-sub"><span>'+e.d+"</span>"+'<span style="opacity:.3">·</span><span class="pill p-reg">'+RL[e.r]+'</span><span style="opacity:.3">·</span><span class="pill p-km">'+e.km+' km</span><span style="opacity:.3">·</span><span class="pill p-ele"><i class="ti ti-trending-up" style="font-size:10px"></i>+'+e.gain+'m</span><span style="opacity:.3">·</span><span style="font-size:11px">'+(e.wx?e.wx.tmax+"°C":"")+wxBadge+'</span>'+(e.ue?'<span style="opacity:.3">·</span><span class="pill p-ue d-'+e.ue.sc+'"><i class="ti ti-tent" style="font-size:10px"></i>'+e.ue.ort+'</span>':'')+'</div></div><i class="ti ti-chevron-down chevron"></i></div><div class="card-body"><div id="map'+e.tag+'" class="map-box"></div>'+layerLegendHTML(e)+'<div class="wind-leg"><i class="ti ti-map-2" style="width:auto;height:auto;color:#9ca3af"></i><span>Streckenfarbe in der Ebene „Wind“:</span><span><i style="background:#22c55e"></i>R\u00fcckenwind</span><span><i style="background:#f59e0b"></i>Seitenwind</span><span><i style="background:#ef4444"></i>Gegenwind</span></div>'+eleHTML(e)+ueHTML(e)+windHTML(e)+shadeHTML(e)+shopHTML(e)+'<div class="uv-section" id="uv-'+e.tag+'"></div>'+fireDistHTML(e)+wxHTML(e)+h2oHTML(e)+waterHTML(e)+bauHTML(e.bau)+warnHTML(e.warns)+'<a href="'+e.url+'" target="_blank" class="off-link"><i class="ti ti-external-link"></i>Offizielle Etappenseite — viarhona.com</a>'+wptHTML(e.wpts)+direktHTML(e.direkt)+hiRows(e.k,"k")+hiRows(e.n,"n")+'<div class="foot-note"><i class="ti ti-database" style="font-size:11px"></i>GPX: Komoot · Baustellen: <a href="https://de.viarhona.com/travaux-en-cours-sur-viarhona" target="_blank">viarhona.com</a> 28. Juni · Wetter/Brand: <a href="https://feuxdeforet.fr" target="_blank">feuxdeforet.fr</a> 5. Juli 2026</div></div></div>';}
 document.addEventListener("fullscreenchange",function(){
 Object.keys(MAPS).forEach(function(k){try{MAPS[k].invalidateSize();}catch(e){}});
 if(!document.fullscreenElement){var els=document.querySelectorAll(".fs-btn");
  for(var i=0;i<els.length;i++)els[i].innerHTML='<i class="ti ti-maximize"></i>';}});
-function render(f){Object.keys(MAPS).forEach(function(k){try{MAPS[k].remove();}catch(e){}delete MAPS[k];});var shown=f==="all"?DAYS:DAYS.filter(function(e){return e.r===f;});document.getElementById("cards").innerHTML=shown.map(renderCard).join("");}
-function tog(tag,region){var el=document.getElementById("card"+tag);el.classList.toggle("open");if(el.classList.contains("open")){var attempts=0;function tryInit(){attempts++;if(typeof L!=="undefined"||attempts>30||window.LEAFLET_FAILED){initMap(tag,region);fetchUVForTag(tag);}else{setTimeout(tryInit,100);}}setTimeout(tryInit,80);}}
+var ACC_PAIRS=[
+ [".ue-sec",".ue-hd",null],
+ [".wd-sec",".wd-hd",null],
+ [".sh-sec",".sh-hd",".sh-item"],
+ [".ek-sec",".ek-hd",".ek-item"],
+ [".water-section",".water-hd",".water-item"],
+ [".fire-dist-wrap",".fire-dist-hd","tbody tr"],
+ [".bau-sec",".bau-hd",".bau-row"],
+ [".direkt-band",".direkt-hd",".di"],
+ [".wpt-band",".wpt-hd",".wpt-item"],
+ [".sec",".sec-hd",".hi-row"]];
+var ACC_OPEN_DEFAULT=["accmap","ue-sec"];
+function accSetIcon(el){var ch=el.querySelector(".acc-ch");if(ch)ch.className="ti ti-chevron-down acc-ch";}
+function accWrap(el,icon,title,open){
+ var wrap=document.createElement("div");wrap.className="acc"+(open?" acc-open":"");
+ var hd=document.createElement("div");hd.className="acc-hd acc-hd-gen";
+ hd.innerHTML='<i class="ti '+icon+'"></i><span class="acc-t">'+title+'</span><i class="ti ti-chevron-down acc-ch"></i>';
+ var bd=document.createElement("div");bd.className="acc-bd";
+ el.parentNode.insertBefore(wrap,el);wrap.appendChild(hd);wrap.appendChild(bd);bd.appendChild(el);
+ hd.addEventListener("click",function(){wrap.classList.toggle("acc-open");});
+ return wrap;}
+function makeAcc(card){
+ if(!card||card.getAttribute("data-acc")==="1")return;
+ var body=card.querySelector(".card-body");if(!body)return;
+ // Karte + Legenden
+ var mb=body.querySelector(".map-box");
+ if(mb){var w=accWrap(mb,"ti-map-2","Karte & Ebenen",true);var bd=w.querySelector(".acc-bd");
+  var nx=w.nextSibling;
+  while(nx){var t=nx.nextSibling;
+   if(nx.nodeType===1&&(nx.className.indexOf("lay-leg")>-1||nx.className.indexOf("wind-leg")>-1))bd.appendChild(nx);else break;
+   nx=t;}}
+ // Wetter
+ var wx=body.querySelector(".wx-section");if(wx)accWrap(wx,"ti-cloud-sun","Wetter & Klima (Augustmittel)",false);
+ // Abschnitte mit eigenem Kopf
+ ACC_PAIRS.forEach(function(p){
+  var list=body.querySelectorAll(p[0]);
+  for(var i=0;i<list.length;i++){(function(sec){
+   if(sec.className.indexOf("acc")>-1)return;
+   var hd=sec.firstElementChild;
+   if(!hd||hd.className.indexOf(p[1].substring(1))<0)return;
+   var n=p[2]?sec.querySelectorAll(p[2]).length:0;
+   sec.className+=" acc";
+   hd.className+=" acc-hd";
+   var bd=document.createElement("div");bd.className="acc-bd";
+   while(hd.nextSibling)bd.appendChild(hd.nextSibling);
+   sec.appendChild(bd);
+   if(n>1){var c=document.createElement("span");c.className="acc-cnt";c.textContent=n;hd.appendChild(c);}
+   var ch=document.createElement("i");ch.className="ti ti-chevron-down acc-ch";hd.appendChild(ch);
+   if(p[0]===".ue-sec")sec.className+=" acc-open";
+   hd.addEventListener("click",function(ev){
+     if(ev.target&&ev.target.tagName==="A")return;
+     sec.classList.toggle("acc-open");});
+  })(list[i]);}});
+ // Leiste "alle auf/zu"
+ var es=body.querySelector(".ele-strip");if(es)body.insertBefore(es,body.firstElementChild);
+ var wb=body.querySelectorAll(".wbox"),anchor=es?es.nextSibling:body.firstElementChild;
+ for(var q=0;q<wb.length;q++)body.insertBefore(wb[q],anchor);
+ var first=(wb.length?wb[wb.length-1].nextSibling:anchor);
+ var bar=document.createElement("div");bar.className="acc-bar";
+ bar.innerHTML='<span>Bereiche einzeln aufklappen</span>'
+  +'<button type="button" data-a="1"><i class="ti ti-chevrons-down"></i>Alle auf</button>'
+  +'<button type="button" data-a="0"><i class="ti ti-chevrons-up"></i>Alle zu</button>';
+ if(first)body.insertBefore(bar,first);else body.appendChild(bar);
+ var btns=bar.getElementsByTagName("button");
+ for(var b=0;b<btns.length;b++){(function(btn){btn.addEventListener("click",function(){
+   var open=btn.getAttribute("data-a")==="1";
+   var accs=body.querySelectorAll(".acc");
+   for(var j=0;j<accs.length;j++){
+     if(open)accs[j].classList.add("acc-open");else accs[j].classList.remove("acc-open");}
+   if(!open){var m=body.querySelector(".map-box");if(m&&m.parentNode&&m.parentNode.parentNode)m.parentNode.parentNode.classList.add("acc-open");}
+   setTimeout(function(){Object.keys(MAPS).forEach(function(k){try{MAPS[k].invalidateSize();}catch(e){}});},220);
+ });})(btns[b]);}
+ card.setAttribute("data-acc","1");}
+function makeAllAcc(){var cs=document.querySelectorAll(".card");for(var i=0;i<cs.length;i++)makeAcc(cs[i]);}
+function render(f){Object.keys(MAPS).forEach(function(k){try{MAPS[k].remove();}catch(e){}delete MAPS[k];});var shown=f==="all"?DAYS:DAYS.filter(function(e){return e.r===f;});document.getElementById("cards").innerHTML=shown.map(renderCard).join("");makeAllAcc();}
+function tog(tag,region){var el=document.getElementById("card"+tag);makeAcc(el);el.classList.toggle("open");if(el.classList.contains("open")){var attempts=0;function tryInit(){attempts++;if(typeof L!=="undefined"||attempts>30||window.LEAFLET_FAILED){initMap(tag,region);fetchUVForTag(tag);}else{setTimeout(tryInit,100);}}setTimeout(tryInit,80);}}
 function filter(f,btn){document.querySelectorAll(".fbt").forEach(function(b){b.classList.remove("on");});btn.classList.add("on");render(f);}
 
 var uvCache={};
@@ -668,7 +839,7 @@ function fireDistHTML(e) {
   }
   
   return '<div class="fire-dist-wrap">' +
-    '<div class="fire-dist-hd"><i class="ti ti-ruler-measure"></i>Abstände Brände ↔ Route (Luftlinie, Stand 2. August 2026)</div>' +
+    '<div class="fire-dist-hd"><i class="ti ti-ruler-measure"></i>Waldbrände — Abstand zur Route<span class="hd-meta">Luftlinie · Stand 2. Aug.</span></div>' +
     '<table class="dist-table">' +
     '<thead><tr><th>Brand</th><th>Status</th><th>Fläche</th><th>Abstand Route</th></tr></thead>' +
     '<tbody>' + rows + '</tbody>' +
