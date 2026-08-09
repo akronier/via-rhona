@@ -2,8 +2,8 @@
    Zweck: Seite und bereits betrachtete Kartenkacheln offline verfügbar halten.
    Ablage: im selben Ordner wie index.html (also im Wurzelverzeichnis von /via-rhona/). */
 
-const APP_CACHE  = 'viarhona-app-v1';
-const TILE_CACHE = 'viarhona-tiles-v1';
+const APP_CACHE  = 'viarhona-app-v2';
+const TILE_CACHE = 'viarhona-tiles-v2';
 const MAX_TILES  = 3000;          // ca. 60–120 MB, reicht für alle 15 Etappen
 
 /* Dateien, die beim ersten Aufruf fest gespeichert werden */

@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101519">
+<title>ViaRhôna 2026 · Etappenplan</title>
+<style>
+:root{
+  --tinte:#101519; --gedaempft:#5A6670; --papier:#E9ECE8; --karte:#fff;
+  --linie:#CBD2CD; --rhone:#1F5F6B; --nacht:#232A31;
+  --s1:#5E87A6; --s2:#B8891E; --s3:#B8501C; --s4:#8C2A12;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papier);color:var(--tinte);font-family:var(--sans);
+     font-size:16px;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 64px}
+
+/* Kopf */
+header{background:var(--tinte);color:var(--papier);margin:0 -16px 28px;padding:34px 16px 26px}
+header .in{max-width:900px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+     color:#8FA3AC;margin:0 0 10px}
+h1{margin:0;font-size:clamp(30px,7vw,50px);line-height:.98;letter-spacing:-.025em;font-weight:800}
+h1 em{font-style:normal;color:#7FB3BE;font-weight:400}
+.kpi{display:flex;flex-wrap:wrap;gap:26px;margin-top:22px;font-family:var(--mono)}
+.kpi div{line-height:1.25}
+.kpi b{display:block;font-size:23px;font-weight:600}
+.kpi span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8FA3AC}
+
+/* Bloecke */
+h2{font-size:12px;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;
+   color:var(--gedaempft);margin:40px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--linie)}
+.box{background:var(--karte);border:1px solid var(--linie);border-radius:3px;padding:16px 18px}
+.box+.box{margin-top:10px}
+.box.alarm{border-left:4px solid var(--s4)}
+.box.regel{border-left:4px solid var(--rhone)}
+.box h4{margin:0 0 8px;font-size:15px}
+.box ul{margin:0;padding-left:19px}
+.box li{margin:5px 0}
+.box li::marker{color:var(--gedaempft)}
+
+/* Uebersicht */
+table{width:100%;border-collapse:collapse;background:var(--karte);
+      border:1px solid var(--linie);font-size:14px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--linie);text-align:left}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+   color:var(--gedaempft);font-weight:500}
+td.r,th.r{text-align:right}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+tbody tr td:first-child{font-family:var(--mono);font-weight:600;
+   border-left:3px solid var(--k)}
+tr.s1{--k:var(--s1)}tr.s2{--k:var(--s2)}tr.s3{--k:var(--s3)}tr.s4{--k:var(--s4)}
+
+/* Etappenkarte */
+.et{display:flex;gap:0;background:var(--karte);border:1px solid var(--linie);
+    border-radius:3px;margin-bottom:10px;overflow:hidden}
+.et.s1{--k:var(--s1)}.et.s2{--k:var(--s2)}.et.s3{--k:var(--s3)}.et.s4{--k:var(--s4)}
+.et-rail{flex:0 0 78px;background:var(--k);color:#fff;padding:14px 10px;
+   display:flex;flex-direction:column;justify-content:flex-start;gap:3px}
+.et-nr{font-family:var(--mono);font-size:26px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.et-tag{font-family:var(--mono);font-size:11px;opacity:.85}
+.et-main{flex:1;min-width:0;padding:14px 16px 15px}
+.et h3{margin:0 0 3px;font-size:17px;line-height:1.25;letter-spacing:-.01em}
+.et h3 em{font-style:normal;color:var(--gedaempft);padding:0 3px}
+.zeit{font-family:var(--mono);font-size:12.5px;color:var(--gedaempft);margin-bottom:12px}
+.zeit b{color:var(--tinte);font-weight:600}
+
+/* Signatur: Tageslichtband */
+.bandwrap{margin:0 0 12px}
+.band{position:relative;height:22px;background:var(--nacht);border-radius:2px;overflow:hidden}
+.band i{position:absolute;top:0;bottom:0;display:block}
+.b-tag{background:#DDE4E1}
+.b-dae{background:#7C8A93}
+.b-hitze{background:repeating-linear-gradient(45deg,rgba(140,42,18,.30) 0 4px,transparent 4px 8px)}
+.b-fahrt{top:5px;bottom:5px;border-radius:2px}
+.b-fahrt.s1{background:var(--s1)}.b-fahrt.s2{background:var(--s2)}
+.b-fahrt.s3{background:var(--s3)}.b-fahrt.s4{background:var(--s4)}
+.b-siesta{top:8px;bottom:8px;background:repeating-linear-gradient(90deg,var(--gedaempft) 0 3px,transparent 3px 6px)}
+.b-sa,.b-su{width:1px;background:#fff;opacity:.6}
+.achse{display:flex;justify-content:space-between;font-family:var(--mono);
+   font-size:9.5px;color:var(--gedaempft);margin-top:3px}
+
+.daten{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));
+   gap:9px;margin:0 0 11px;padding:11px 0;border-top:1px solid var(--linie);
+   border-bottom:1px solid var(--linie)}
+.daten dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+   text-transform:uppercase;color:var(--gedaempft)}
+.daten dd{margin:1px 0 0;font-family:var(--mono);font-size:14px;font-weight:600}
+.daten dd small{display:block;font-weight:400;font-size:9.5px;color:var(--gedaempft);
+   letter-spacing:.06em;text-transform:uppercase}
+
+.notizen{list-style:none;margin:0;padding:0;font-size:14px}
+.notizen li{display:flex;gap:8px;padding:4px 0;line-height:1.45}
+.notizen li span{flex:0 0 17px;text-align:center;font-size:12px;line-height:1.6}
+.n-warn{color:#7E2A12;font-weight:500}
+.n-feuer,.n-bau{color:#8A4A14}
+.n-stern{color:var(--rhone);font-weight:500}
+.n-h2o{color:#155E70}
+.n-ok,.n-info,.n-ue{color:var(--gedaempft)}
+
+.legende{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:11px;
+   color:var(--gedaempft);margin-top:10px}
+.legende i{display:inline-block;width:15px;height:9px;border-radius:2px;
+   margin-right:5px;vertical-align:-1px}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--linie);
+   font-family:var(--mono);font-size:11px;color:var(--gedaempft);line-height:1.7}
+
+@media (max-width:560px){
+  .et{flex-direction:column}
+  .et-rail{flex:none;flex-direction:row;align-items:baseline;gap:9px;padding:8px 14px}
+  .et-nr{font-size:19px}
+  table{font-size:12.5px}th,td{padding:6px 5px}
+}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  header{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 12px;margin:0 0 16px}
+  .eyebrow,.kpi span{color:#555}h1 em{color:#555}.kpi b{font-size:15pt}
+  .et,.box,table{break-inside:avoid;border-color:#999}
+  .et-rail{background:#fff!important;color:#000!important;border-right:2px solid #000}
+  .wrap{padding:0}
+}
+@media (prefers-reduced-motion:no-preference){
+  .et{transition:box-shadow .18s ease}
+  .et:hover{box-shadow:0 1px 0 var(--linie),0 6px 18px rgba(16,21,25,.07)}
+}
+</style></head><body>
+
+<header><div class="in">
+  <p class="eyebrow">Etappenplan &middot; Stand 9. August 2026</p>
+  <h1>ViaRhôna<br><em>Lausanne &rarr; Béziers</em></h1>
+  <div class="kpi">
+    <div><b>929,4</b><span>Kilometer</span></div>
+    <div><b>3.021</b><span>Höhenmeter</span></div>
+    <div><b>15</b><span>Etappen</span></div>
+    <div><b>11.–25.08.</b><span>2026</span></div>
+    <div><b>3</b><span>Räder ohne Motor</span></div>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<h2>Vor der Abfahrt</h2>
+<div class="box alarm">
+  <h4>Zeitkritisch — bis Montag</h4>
+  <ul>
+    <li><b>Sonnenfinsternisbrillen ISO 12312-2 &times; 3</b> — für T2 am 12.08.</li>
+    <li>Patria Ranger: Bremsen entlüften (Shimano Mineralöl), Luft im System bestätigt</li>
+    <li>Bargeld 400–500 € in Deutschland abheben</li>
+    <li>ROLAND Fahrradschutzbrief: Verlängerungsstatus prüfen</li>
+    <li>Komoot: alle 15 Etappen einzeln offline laden, Regionen Waadt/Genf, Auvergne-Rhône-Alpes, PACA, Occitanie</li>
+    <li>Organic Maps mit Frankreich + Schweiz als zweites System</li>
+    <li>Wasserkapazität aufstocken — 14,25 l reichen auf T4 und T5 nicht</li>
+    <li>Reifendruck 3,0 bar, Bremsbeläge an allen drei Rädern</li>
+  </ul>
+</div>
+
+<h2>Wie die Zeiten zustande kommen</h2>
+<div class="box regel">
+  <ul>
+    <li><b>Rückwärts gerechnet.</b> Zuerst steht das späteste vertretbare Etappenende: 13:00 ab 36 °C, 13:30 ab 33 °C, sonst 14:30. Davon wird die Fahrdauer abgezogen.</li>
+    <li><b>Fahrdauer</b> = 13 km/h, plus 3 min je 100 Hm, plus 20 min Grundpause, plus 12 min je 10 km für Trinken, Fotos und Schauen. Großzügig gerechnet.</li>
+    <li><b>Nie vor dem Sonnenaufgang</b> — außer auf T4, T8 und T12. Dort 25 min davor, mit Licht.</li>
+    <li><b>Nie später als 07:15</b>, auch an kühlen Tagen.</li>
+    <li><b>Siesta 12:30–16:30</b>, wenn die Ankunft sonst nach 14:00 läge und es über 33 °C hat. Betrifft T8 und T12.</li>
+    <li>Sonnenauf- und -untergang sind je Etappenziel astronomisch berechnet, nicht geschätzt.</li>
+  </ul>
+</div>
+
+<h2>Übersicht</h2>
+<table><thead><tr>
+  <th>Et</th><th>Datum</th><th class="r">km</th><th class="r">Hm</th>
+  <th class="r">°C</th><th>Sonne</th><th>Start</th><th>Ankunft</th>
+</tr></thead><tbody><tr class="s1"><td>T1</td><td>11.08.</td><td class="r">69,6</td><td class="r">651</td><td class="r">30</td><td class="mono">06:27</td><td class="mono">07:06</td><td class="mono">14:30</td></tr><tr class="s1"><td>T2</td><td>12.08.</td><td class="r">64,1</td><td class="r">264</td><td class="r">30</td><td class="mono">06:31</td><td class="mono">07:15</td><td class="mono">13:56</td></tr><tr class="s2"><td>T3</td><td>13.08.</td><td class="r">64,0</td><td class="r">580</td><td class="r">34</td><td class="mono">06:33</td><td class="mono">06:40</td><td class="mono">13:30</td></tr><tr class="s2"><td>T4</td><td>14.08.</td><td class="r">72,2</td><td class="r">300</td><td class="r">35</td><td class="mono">06:37</td><td class="mono">06:12</td><td class="mono">13:41</td></tr><tr class="s2"><td>T5</td><td>15.08.</td><td class="r">66,6</td><td class="r">194</td><td class="r">34</td><td class="mono">06:40</td><td class="mono">06:40</td><td class="mono">13:34</td></tr><tr class="s1"><td>T6</td><td>16.08.</td><td class="r">50,2</td><td class="r">132</td><td class="r">32</td><td class="mono">06:43</td><td class="mono">07:15</td><td class="mono">12:31</td></tr><tr class="s3"><td>T7</td><td>17.08.</td><td class="r">66,3</td><td class="r">108</td><td class="r">36</td><td class="mono">06:44</td><td class="mono">06:44</td><td class="mono">13:33</td></tr><tr class="s3"><td>T8</td><td>18.08.</td><td class="r">82,2</td><td class="r">167</td><td class="r">37</td><td class="mono">06:46</td><td class="mono">06:21</td><td class="mono">18:32 *</td></tr><tr class="s3"><td>T9</td><td>19.08.</td><td class="r">63,3</td><td class="r">132</td><td class="r">37</td><td class="mono">06:48</td><td class="mono">06:48</td><td class="mono">13:20</td></tr><tr class="s4"><td>T10</td><td>20.08.</td><td class="r">61,0</td><td class="r">106</td><td class="r">38</td><td class="mono">06:50</td><td class="mono">06:50</td><td class="mono">13:08</td></tr><tr class="s4"><td>T11</td><td>21.08.</td><td class="r">64,0</td><td class="r">123</td><td class="r">38</td><td class="mono">06:52</td><td class="mono">06:52</td><td class="mono">13:28</td></tr><tr class="s3"><td>T12</td><td>22.08.</td><td class="r">76,7</td><td class="r">97</td><td class="r">36</td><td class="mono">06:56</td><td class="mono">06:31</td><td class="mono">18:10 *</td></tr><tr class="s2"><td>T13</td><td>23.08.</td><td class="r">60,8</td><td class="r">79</td><td class="r">35</td><td class="mono">06:59</td><td class="mono">07:14</td><td class="mono">13:30</td></tr><tr class="s2"><td>T14</td><td>24.08.</td><td class="r">62,1</td><td class="r">70</td><td class="r">34</td><td class="mono">07:02</td><td class="mono">07:07</td><td class="mono">13:30</td></tr><tr class="s2"><td>T15</td><td>25.08.</td><td class="r">6,3</td><td class="r">18</td><td class="r">34</td><td class="mono">07:03</td><td class="mono">08:00</td><td class="mono">08:57</td></tr></tbody></table>
+<div class="legende">
+  <span><i style="background:var(--s1)"></i>bis 32 °C</span>
+  <span><i style="background:var(--s2)"></i>33–35 °C</span>
+  <span><i style="background:var(--s3)"></i>36–37 °C</span>
+  <span><i style="background:var(--s4)"></i>ab 38 °C</span>
+  <span>* nach Siesta</span>
+</div>
+
+<h2>Etappen</h2>
+
+<article class="et s1" id="t1">
+  <div class="et-rail"><span class="et-nr">T1</span><span class="et-tag">Di 11.08.</span></div>
+  <div class="et-main">
+    <h3>Lausanne <em>&rarr;</em> Amphion · Parc de la Dranse</h3>
+    <div class="zeit"><b>07:06</b> Start &middot; <b>14:30</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:13.61%;width:80.00%"></i><i class="b-dae" style="left:10.83%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s1" style="left:17.22%;width:41.11%"></i><i class="b-sa" style="left:13.61%"></i><i class="b-su" style="left:93.61%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>69,6 km</dd></div>
+      <div><dt>Anstieg</dt><dd>651 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>07:24</dd></div>
+      <div><dt>Tmax</dt><dd>29,6 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:27 – 20:51</dd></div>
+      <div><dt>Hitzestufe</dt><dd>mäßig</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-ue"><span>⛺</span>Vornacht: Camping de Vidy, Lausanne (10.–11.08.)</li><li class="n-info"><span>◆</span>651 Hm — die höchste Etappe der Tour. Mild genug für einen späten Start.</li><li class="n-ok"><span>✓</span>Ankunft 14:30 ist bei 29,6 °C vertretbar.</li></ul>
+  </div>
+</article>
+<article class="et s1" id="t2">
+  <div class="et-rail"><span class="et-nr">T2</span><span class="et-tag">Mi 12.08.</span></div>
+  <div class="et-main">
+    <h3>Amphion <em>&rarr;</em> Satigny · Genf</h3>
+    <div class="zeit"><b>07:15</b> Start &middot; <b>13:56</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:13.98%;width:79.63%"></i><i class="b-dae" style="left:11.20%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s1" style="left:18.06%;width:37.13%"></i><i class="b-sa" style="left:13.98%"></i><i class="b-su" style="left:93.61%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>64,1 km</dd></div>
+      <div><dt>Anstieg</dt><dd>264 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:41</dd></div>
+      <div><dt>Tmax</dt><dd>30,4 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:31 – 20:51</dd></div>
+      <div><dt>Hitzestufe</dt><dd>mäßig</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-stern"><span>☉</span>Sonnenfinsternis: Beginn 19:26, Maximum 20:20 · 92,8 % Bedeckung bei Genf</li><li class="n-stern"><span>☉</span>Sonnenhöhe im Max. nur ~3,9° — Jura-Riegel. Weinberghänge über Satigny ab 19:26.</li><li class="n-warn"><span>▲</span>Nur mit ISO 12312-2. Ersatzweise Lochkamera-Projektion.</li><li class="n-stern"><span>☉</span>Perseiden-Maximum in derselben Nacht, Neumond. Rotlicht-Stirnlampe.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t3">
+  <div class="et-rail"><span class="et-nr">T3</span><span class="et-tag">Do 13.08.</span></div>
+  <div class="et-main">
+    <h3>Satigny <em>&rarr;</em> Seyssel · Bugey</h3>
+    <div class="zeit"><b>06:40</b> Start &middot; <b>13:30</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:14.17%;width:79.35%"></i><i class="b-dae" style="left:11.39%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:14.81%;width:37.96%"></i><i class="b-sa" style="left:14.17%"></i><i class="b-su" style="left:93.52%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>64,0 km</dd></div>
+      <div><dt>Anstieg</dt><dd>580 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:50</dd></div>
+      <div><dt>Tmax</dt><dd>34,0 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:33 – 20:50</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-info"><span>◆</span>580 Hm — zweithöchste Etappe.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t4">
+  <div class="et-rail"><span class="et-nr">T4</span><span class="et-tag">Fr 14.08.</span></div>
+  <div class="et-main">
+    <h3>Seyssel <em>&rarr;</em> Morestel</h3>
+    <div class="zeit"><b>06:12</b> Start &middot; <b>13:41</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:14.54%;width:78.89%"></i><i class="b-dae" style="left:11.76%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:12.22%;width:41.57%"></i><i class="b-sa" style="left:14.54%"></i><i class="b-su" style="left:93.43%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>72,2 km</dd></div>
+      <div><dt>Anstieg</dt><dd>300 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>07:29</dd></div>
+      <div><dt>Tmax</dt><dd>35,0 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:37 – 20:49</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-warn"><span>▲</span>Start 25 min vor Sonnenaufgang. Front- und Rücklicht Pflicht.</li><li class="n-h2o"><span>💧</span>Wasserengstelle: 72 km ohne gesicherte Quelle. Bedarf 18 l, Kapazität 14,25 l — Nachfüllen ist Pflicht.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t5">
+  <div class="et-rail"><span class="et-nr">T5</span><span class="et-tag">Sa 15.08.</span></div>
+  <div class="et-main">
+    <h3>Morestel <em>&rarr;</em> Lyon</h3>
+    <div class="zeit"><b>06:40</b> Start &middot; <b>13:34</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:14.81%;width:78.70%"></i><i class="b-dae" style="left:12.04%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:14.81%;width:38.33%"></i><i class="b-sa" style="left:14.81%"></i><i class="b-su" style="left:93.52%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>66,6 km</dd></div>
+      <div><dt>Anstieg</dt><dd>194 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:53</dd></div>
+      <div><dt>Tmax</dt><dd>34,4 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:40 – 20:50</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-h2o"><span>💧</span>Wasserengstelle. Bedarf 16,5 l.</li><li class="n-bau"><span>⚠</span>Ankunft Lyon: Umleitung im Parc Miribel Jonage. Bequemer über den Treidelpfad bis Iloz, dann Kanal bis Passerelle de Décines.</li></ul>
+  </div>
+</article>
+<article class="et s1" id="t6">
+  <div class="et-rail"><span class="et-nr">T6</span><span class="et-tag">So 16.08.</span></div>
+  <div class="et-main">
+    <h3>Lyon <em>&rarr;</em> Condrieu · Les Roches</h3>
+    <div class="zeit"><b>07:15</b> Start &middot; <b>12:31</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.09%;width:78.24%"></i><i class="b-dae" style="left:12.31%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s1" style="left:18.06%;width:29.26%"></i><i class="b-sa" style="left:15.09%"></i><i class="b-su" style="left:93.33%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>50,2 km</dd></div>
+      <div><dt>Anstieg</dt><dd>132 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>05:16</dd></div>
+      <div><dt>Tmax</dt><dd>32,0 °C<small>Prognose</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:43 – 20:48</dd></div>
+      <div><dt>Hitzestufe</dt><dd>mäßig</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-ok"><span>✓</span>Kürzeste Fahretappe. Puffer- und Erholungstag.</li><li class="n-bau"><span>⚠</span>Brücke Condrieu ↔ Les Roches-de-Condrieu: Durchfahrt unter der Brücke gesperrt, Umgehung durchs Dorf.</li></ul>
+  </div>
+</article>
+<article class="et s3" id="t7">
+  <div class="et-rail"><span class="et-nr">T7</span><span class="et-tag">Mo 17.08.</span></div>
+  <div class="et-main">
+    <h3>Condrieu <em>&rarr;</em> Andance · Sarras</h3>
+    <div class="zeit"><b>06:44</b> Start &middot; <b>13:33</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.19%;width:77.96%"></i><i class="b-dae" style="left:12.41%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s3" style="left:15.19%;width:37.87%"></i><i class="b-sa" style="left:15.19%"></i><i class="b-su" style="left:93.15%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>66,3 km</dd></div>
+      <div><dt>Anstieg</dt><dd>108 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:49</dd></div>
+      <div><dt>Tmax</dt><dd>36,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:44 – 20:46</dd></div>
+      <div><dt>Hitzestufe</dt><dd>sehr heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-info"><span>◆</span>Nur 108 Hm — flachste lange Etappe.</li></ul>
+  </div>
+</article>
+<article class="et s3" id="t8">
+  <div class="et-rail"><span class="et-nr">T8</span><span class="et-tag">Di 18.08.</span></div>
+  <div class="et-main">
+    <h3>Andance <em>&rarr;</em> Charmes-sur-Rhône</h3>
+    <div class="zeit"><b>06:21</b> Start &middot; 59 km bis <b>12:30</b> &middot; Pause bis <b>16:30</b> &middot; 23 km &middot; <b>18:32</b> Ziel</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.37%;width:77.59%"></i><i class="b-dae" style="left:12.59%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s3" style="left:13.06%;width:34.17%"></i><i class="b-siesta" style="left:47.22%;width:22.22%"></i><i class="b-fahrt s3" style="left:69.44%;width:11.30%"></i><i class="b-sa" style="left:15.37%"></i><i class="b-su" style="left:92.96%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>82,2 km</dd></div>
+      <div><dt>Anstieg</dt><dd>167 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>08:23</dd></div>
+      <div><dt>Tmax</dt><dd>37,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:46 – 20:44</dd></div>
+      <div><dt>Hitzestufe</dt><dd>sehr heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-warn"><span>▲</span>LÄNGSTE ETAPPE. Siesta 12:30–16:30 ist nicht optional.</li><li class="n-bau"><span>⚠</span>Bourg-lès-Valence, rue Pompéry: ViaRhôna vom 21.07.–30.09.2026 unterbrochen, Umleitung ausgeschildert.</li><li class="n-bau"><span>⚠</span>Passerelle Tournon-sur-Rhône: Überqueren auf dem Rad verboten — schieben.</li><li class="n-h2o"><span>💧</span>Wasserengstelle.</li><li class="n-ue"><span>⛺</span>Unterkunft St-Laurent-du-Pape liegt ~8 km im Eyrieux-Tal — kommt zur Etappe dazu.</li></ul>
+  </div>
+</article>
+<article class="et s3" id="t9">
+  <div class="et-rail"><span class="et-nr">T9</span><span class="et-tag">Mi 19.08.</span></div>
+  <div class="et-main">
+    <h3>Charmes <em>&rarr;</em> Viviers · Bourg-St-Andéol</h3>
+    <div class="zeit"><b>06:48</b> Start &middot; <b>13:20</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.56%;width:77.22%"></i><i class="b-dae" style="left:12.78%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s3" style="left:15.56%;width:36.30%"></i><i class="b-sa" style="left:15.56%"></i><i class="b-su" style="left:92.78%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>63,3 km</dd></div>
+      <div><dt>Anstieg</dt><dd>132 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:32</dd></div>
+      <div><dt>Tmax</dt><dd>37,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:48 – 20:42</dd></div>
+      <div><dt>Hitzestufe</dt><dd>sehr heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-h2o"><span>💧</span>Wasserengstelle.</li><li class="n-bau"><span>⚠</span>Passerellen Rochemaure und Baix: technische Arbeiten.</li></ul>
+  </div>
+</article>
+<article class="et s4" id="t10">
+  <div class="et-rail"><span class="et-nr">T10</span><span class="et-tag">Do 20.08.</span></div>
+  <div class="et-main">
+    <h3>Viviers <em>&rarr;</em> Orange</h3>
+    <div class="zeit"><b>06:50</b> Start &middot; <b>13:08</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.74%;width:76.76%"></i><i class="b-dae" style="left:12.96%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s4" style="left:15.74%;width:35.00%"></i><i class="b-sa" style="left:15.74%"></i><i class="b-su" style="left:92.50%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>61,0 km</dd></div>
+      <div><dt>Anstieg</dt><dd>106 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:18</dd></div>
+      <div><dt>Tmax</dt><dd>38,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:50 – 20:39</dd></div>
+      <div><dt>Hitzestufe</dt><dd>extrem</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-ue"><span>⛺</span>Unterkunft Orange, Rue Victor Hugo.</li></ul>
+  </div>
+</article>
+<article class="et s4" id="t11">
+  <div class="et-rail"><span class="et-nr">T11</span><span class="et-tag">Fr 21.08.</span></div>
+  <div class="et-main">
+    <h3>Orange <em>&rarr;</em> Saint-Étienne-du-Grès</h3>
+    <div class="zeit"><b>06:52</b> Start &middot; <b>13:28</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:15.93%;width:76.39%"></i><i class="b-dae" style="left:13.15%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s4" style="left:15.93%;width:36.67%"></i><i class="b-sa" style="left:15.93%"></i><i class="b-su" style="left:92.31%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>64,0 km</dd></div>
+      <div><dt>Anstieg</dt><dd>123 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:36</dd></div>
+      <div><dt>Tmax</dt><dd>38,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:52 – 20:37</dd></div>
+      <div><dt>Hitzestufe</dt><dd>extrem</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-ue"><span>⛺</span>Unterkunft Porte des Alpilles, Saint-Étienne-du-Grès.</li></ul>
+  </div>
+</article>
+<article class="et s3" id="t12">
+  <div class="et-rail"><span class="et-nr">T12</span><span class="et-tag">Sa 22.08.</span></div>
+  <div class="et-main">
+    <h3>St-Étienne-du-Grès <em>&rarr;</em> Aigues-Mortes · Grau-du-Roi</h3>
+    <div class="zeit"><b>06:31</b> Start &middot; 58 km bis <b>12:30</b> &middot; Pause bis <b>16:30</b> &middot; 19 km &middot; <b>18:10</b> Ziel</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:16.30%;width:76.02%"></i><i class="b-dae" style="left:13.52%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s3" style="left:13.98%;width:33.24%"></i><i class="b-siesta" style="left:47.22%;width:22.22%"></i><i class="b-fahrt s3" style="left:69.44%;width:9.26%"></i><i class="b-sa" style="left:16.30%"></i><i class="b-su" style="left:92.31%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>76,7 km</dd></div>
+      <div><dt>Anstieg</dt><dd>97 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>07:49</dd></div>
+      <div><dt>Tmax</dt><dd>36,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:56 – 20:37</dd></div>
+      <div><dt>Hitzestufe</dt><dd>sehr heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-warn"><span>▲</span>Beaucaire–Fourques: Zufahrt südlich Beaucaire werktags 8–16 Uhr gesperrt. Bei Start 06:31 seid ihr gegen 07:30 dort — vor der Sperrung. Sonst Wiedereinstieg am Parkplatz südlich der Zone artisanale Domitia.</li><li class="n-warn"><span>▲</span>Siesta 12:30–16:30 nötig.</li><li class="n-bau"><span>⚠</span>Saint-Gilles: Umleitung, Hafenquerung am rechten Kanalufer entfällt.</li><li class="n-wind"><span>↝</span>Offener Damm am Canal du Rhône à Sète — bei Tramontane böenexponiert.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t13">
+  <div class="et-rail"><span class="et-nr">T13</span><span class="et-tag">So 23.08.</span></div>
+  <div class="et-main">
+    <h3>Aigues-Mortes <em>&rarr;</em> Frontignan-Plage</h3>
+    <div class="zeit"><b>07:14</b> Start &middot; <b>13:30</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:16.57%;width:75.74%"></i><i class="b-dae" style="left:13.80%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:17.96%;width:34.81%"></i><i class="b-sa" style="left:16.57%"></i><i class="b-su" style="left:92.31%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>60,8 km</dd></div>
+      <div><dt>Anstieg</dt><dd>79 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:16</dd></div>
+      <div><dt>Tmax</dt><dd>35,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>06:59 – 20:37</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-feuer"><span>🔥</span>Waldbrandsektoren 7, 8 (La Gardiole) und 9 am Vorabend um 18 Uhr prüfen.</li><li class="n-info"><span>◆</span>Durch das Zentrum von Montpellier.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t14">
+  <div class="et-rail"><span class="et-nr">T14</span><span class="et-tag">Mo 24.08.</span></div>
+  <div class="et-main">
+    <h3>Frontignan <em>&rarr;</em> Villeneuve-lès-Béziers</h3>
+    <div class="zeit"><b>07:07</b> Start &middot; <b>13:30</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:16.85%;width:75.46%"></i><i class="b-dae" style="left:14.07%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:17.31%;width:35.46%"></i><i class="b-sa" style="left:16.85%"></i><i class="b-su" style="left:92.31%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>62,1 km</dd></div>
+      <div><dt>Anstieg</dt><dd>70 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>06:23</dd></div>
+      <div><dt>Tmax</dt><dd>34,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>07:02 – 20:37</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-feuer"><span>🔥</span>Sektoren 6 (Minervois/Saint-Chinianais) und 7 prüfen.</li><li class="n-feuer"><span>🔥</span>In der Woche vor Ankunft brannte es bei Sérignan zweimal.</li></ul>
+  </div>
+</article>
+<article class="et s2" id="t15">
+  <div class="et-rail"><span class="et-nr">T15</span><span class="et-tag">Di 25.08.</span></div>
+  <div class="et-main">
+    <h3>Villeneuve <em>&rarr;</em> Béziers · Écluses de Fonseranes</h3>
+    <div class="zeit"><b>08:00</b> Start &middot; <b>08:57</b> Ankunft</div>
+    <div class="bandwrap">
+      <div class="band"><i class="b-tag" style="left:16.94%;width:75.28%"></i><i class="b-dae" style="left:14.17%;width:2.78%"></i><i class="b-hitze" style="left:61.11%;width:16.67%"></i><i class="b-fahrt s2" style="left:22.22%;width:5.28%"></i><i class="b-sa" style="left:16.94%"></i><i class="b-su" style="left:92.22%"></i></div>
+      <div class="achse"><span>04</span><span>07</span><span>10</span><span>13</span><span>16</span><span>19</span><span>22</span></div>
+    </div>
+    <dl class="daten">
+      <div><dt>Distanz</dt><dd>6,3 km</dd></div>
+      <div><dt>Anstieg</dt><dd>18 m</dd></div>
+      <div><dt>Fahrdauer</dt><dd>00:57</dd></div>
+      <div><dt>Tmax</dt><dd>34,0 °C<small>Trend</small></dd></div>
+      <div><dt>Sonne</dt><dd>07:03 – 20:36</dd></div>
+      <div><dt>Hitzestufe</dt><dd>heiß</dd></div>
+    </dl>
+    <ul class="notizen"><li class="n-ok"><span>✓</span>6,3 km am Canal du Midi hinauf zu den Écluses de Fonseranes.</li><li class="n-feuer"><span>🔥</span>Colombiers (07.08., gelöscht) liegt 3 km entfernt direkt an der Strecke.</li><li class="n-ue"><span>⛺</span>Rückreise ab Gare de Béziers — Radmitnahme reservieren.</li><li class="n-ue"><span>⛺</span>Rückreisenacht Europacamping Sand, 26.–27.08. — vorher anrufen.</li></ul>
+  </div>
+</article>
+
+<h2>Dauerregeln unterwegs</h2>
+<div class="box">
+  <h4>🔥 Waldbrand — jeden Abend</h4>
+  <ul>
+    <li>Risikokarte erscheint täglich <b>um 18:00</b>: risque-prevention-incendie.fr/herault — schneller über @Prefet34 auf X, Facebook oder Instagram.</li>
+    <li><b>Rot = Zutritt zu den Waldgebieten verboten.</b> Orange = Zutritt wird abgeraten.</li>
+    <li>Die Präfektur führt jetzt <b>9 Sektoren</b>, nicht mehr die alten Einzelflächen. Relevant: 6 Minervois/Saint-Chinianais, 7 Plaine viticole Cœur Hérault, 8 La Gardiole, 9 Plaine viticole de l'Est héraultais.</li>
+    <li>Ausweichroute <b>am Vorabend im WLAN</b> planen und herunterladen. Offline kann komoot nicht umplanen.</li>
+  </ul>
+</div>
+<div class="box">
+  <h4>💧 Wasser</h4>
+  <ul>
+    <li>Gesamtbedarf <b>259 l</b> für drei Personen. Bei 36–38 °C eher 6–7 l pro Person und Fahrtag.</li>
+    <li><b>Vier Engstellen: T4, T5, T8, T9.</b> Auf T4 stehen 18 l Bedarf gegen 14,25 l Kapazität — Nachfüllen ist Pflicht, nicht Option.</li>
+    <li>Verlässliche Quellen unterwegs: Friedhöfe, Mairies, Boulangerien, Cafés.</li>
+    <li>Salz 1–1,5 g je Liter. Kapseln sind bei diesen Werten eingeplanter Verbrauch, kein Notfall-Backup.</li>
+  </ul>
+</div>
+<div class="box">
+  <h4>🌡 Hitze</h4>
+  <ul>
+    <li>Tagesmaximum liegt <b>zwischen 16 und 17 Uhr</b>, nicht mittags. Deshalb enden die Etappen früh statt in der Mitte zu pausieren.</li>
+    <li>Nächte bei 20–24 °C über die ganze Tour. Bei Unterkünften ohne Klimaanlage am Vorabend nach einem Ventilator fragen.</li>
+    <li>Wenn eine Person nach vier, fünf Tagen deutlich schlechter aus dem Bett kommt: akkumulierte Hitzebelastung, kein Trainingszustand. Ein Ruhetag ist billiger als ein Abbruch.</li>
+  </ul>
+</div>
+<div class="box">
+  <h4>↝ Wind</h4>
+  <ul>
+    <li>Mistral und Tramontane sind zurück — die frühere Annahme von 3–9 km/h aus Süd/Nordost gilt nicht mehr.</li>
+    <li>Mistral im unteren Rhônetal: im Mittel um 50 km/h, in Böen 80–100. Fahrtrichtung bedeutet Rückenwind.</li>
+    <li>Dieselbe Lage treibt aber das Brandrisiko. Auf offenen Dämmen ab T12 tief bleiben und Abstand halten.</li>
+  </ul>
+</div>
+
+<footer>
+  Stand 9. August 2026 &middot; Distanzen und Höhenmeter aus den vollständigen Komoot-GPX<br>
+  Wetter T1–T6 aus Ortsprognose, T7–T15 aus dem Trend — ab T7 unterwegs neu bewerten<br>
+  Höhenmeter T1, T3 und T7 GPX-verifiziert, übrige auf die geprüfte Gesamtsumme 3.021 m verteilt<br>
+  Baustellenstand ViaRhôna vom 24.04.2026, Bourg-lès-Valence ergänzt &middot; Waldbrandlage vom 9. August
+</footer>
+</div></body></html>
